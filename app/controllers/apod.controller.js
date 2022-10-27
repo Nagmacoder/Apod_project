@@ -3,6 +3,7 @@ const dbConfig = require("../config/db.config.js");
 const nasaConfig = require("../config/nasa.config");
 const { download } = require("../helper/download.js");
 const apodServices = require("../Services/apodServices.js");
+const message = require("../constant/response.js");
 const APOD_Record = db.APOD_Record;
 const Op = db.Sequelize.Op;
 const axios = require("axios");
@@ -35,9 +36,9 @@ exports.find = async (req, res) => {
       const result = data?.data;
 
       if (!result) {
-        res.status(400).send("Data Not Found.");
+        res.status(400).send(message.Error.NOT_FOUND);
       }
-
+      // NOT_FOUND
       download(result.url, `${date}.png`, function () {
         console.log("done");
       });
@@ -50,10 +51,10 @@ exports.find = async (req, res) => {
       const storedData = await apod.saveApod(result);
 
       if (storedData) {
-        res.status(200).send(storedData);
+        res.status(200).send(storedData, message.Success.OK);
       }
     }
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error, message.Error.WRONG);
   }
 };

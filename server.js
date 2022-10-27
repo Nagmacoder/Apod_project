@@ -1,7 +1,8 @@
+const dbConfig = require("./app/config/db.config.js");
+const message = require("./app/constant/response.js");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const dbConfig = require("./app/config/db.config.js");
 require("dotenv").config();
 const path = require("path");
 const app = express();
@@ -25,12 +26,12 @@ db.sequelize.sync();
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to APOD application." });
+  res.json({ message: message.Success.WELCOME });
 });
 
 require("./app/routes/apod.routes")(app);
 
 const PORT = dbConfig.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`${message.Success.SERVICE_STATUS} ${PORT}.`);
 });
