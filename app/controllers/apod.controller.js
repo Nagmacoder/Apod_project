@@ -43,7 +43,6 @@ exports.find = async (req, res) => {
 
       const imagedata = `${dbConfig.LOCALIMAGE}${date}`;
       result.url = imagedata;
-      console.log(imagedata);
       // Save Apod in the database
 
       const storedData = await apod.saveApod(result);

@@ -11,14 +11,11 @@ let fullDate = UpdateDate ? UpdateDate : `${year}-${month}-${date}`;
 document.getElementById("calendar").setAttribute("value", fullDate);
 
 (function apiCall() {
-  console.log("yup");
   let fetchRes = fetch(`http://localhost:8080/api/apods?date=${fullDate}`);
 
   fetchRes
     .then((res) => res.json())
     .then((data) => {
-      console.log(data, "alksdjsad");
-      console.log(data.url, "qwiuewuiqeh");
       image.src = `http://localhost:8080/${data.url}.png`;
       dis.innerText = data.explanation;
       Title.innerText = data.title;
@@ -34,8 +31,6 @@ document.getElementById("calendar").onchange = function (e) {
   fetchRes
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      console.log(data.url, "onchange");
       image.src = `http://localhost:8080/${data.url}.png`;
       dis.innerText = data.explanation;
       Title.innerText = data.title;
