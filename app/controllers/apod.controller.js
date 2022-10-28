@@ -1,11 +1,9 @@
 const db = require("../models");
 const dbConfig = require("../config/db.config.js");
-const nasaConfig = require("../config/nasa.config");
 const { download } = require("../helper/download.js");
 const apodServices = require("../Services/apodServices.js");
 const message = require("../constant/response.js");
 const APOD_Record = db.APOD_Record;
-const Op = db.Sequelize.Op;
 const axios = require("axios");
 
 const apod = new apodServices();
@@ -45,16 +43,16 @@ exports.find = async (req, res) => {
 
       const imagedata = `${dbConfig.LOCALIMAGE}${date}`;
       result.url = imagedata;
-
+      console.log(imagedata);
       // Save Apod in the database
 
       const storedData = await apod.saveApod(result);
 
       if (storedData) {
-        res.status(200).send(storedData, message.Success.OK);
+        res.status(200).send(storedData);
       }
     }
   } catch (error) {
-    res.status(400).send(error, message.Error.WRONG);
+    res.status(400).send(error);
   }
 };

@@ -12,7 +12,7 @@ var corsOptions = {
 };
 
 app.use("/public", express.static(path.join(__dirname, "/public")));
-
+console.log(`${__dirname}/app/public`);
 app.use(cors(corsOptions));
 
 app.use(bodyParser.json());

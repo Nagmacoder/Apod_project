@@ -17,26 +17,28 @@ document.getElementById("calendar").setAttribute("value", fullDate);
   fetchRes
     .then((res) => res.json())
     .then((data) => {
+      console.log(data, "alksdjsad");
+      console.log(data.url, "qwiuewuiqeh");
       image.src = `http://localhost:8080/${data.url}.png`;
       dis.innerText = data.explanation;
       Title.innerText = data.title;
       console.log("onLoad");
-      // image.src = `./public/images/${fullDate}.png`;
     });
 })();
 
 document.getElementById("calendar").onchange = function (e) {
   temp = e.target.value;
   UpdateDate = temp;
+  console.log(UpdateDate);
   let fetchRes = fetch(`http://localhost:8080/api/apods?date=${UpdateDate}`);
   fetchRes
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+      console.log(data.url, "onchange");
       image.src = `http://localhost:8080/${data.url}.png`;
       dis.innerText = data.explanation;
       Title.innerText = data.title;
-      // UpdateDate = data.date;
     })
     .catch((err) => {
       console.log(err);
